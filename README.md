@@ -1,2 +1,3 @@
 # skills
-Skills for apm
+
+Skill collections for coding agents. Intended to be installed with APM.
