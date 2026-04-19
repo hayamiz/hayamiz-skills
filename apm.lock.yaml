@@ -11,7 +11,7 @@ dependencies:
   deployed_files:
   - .claude/skills/skill-creator
   content_hash: sha256:ad480cdd4a4b5886cb7d35c2055d4b9005babe15d80ace54d90f4259f3bf3257
-- repo_url: hayamiz/hayamiz-skills
+- repo_url: hayamiz/hayamiz-agentkit
   host: github.com
   resolved_commit: c49c95c596b2ea2fbaf644aca38ff23b1648679d
   virtual_path: commit-all
@@ -20,7 +20,7 @@ dependencies:
   deployed_files:
   - .claude/skills/commit-all
   content_hash: sha256:1941be2793e07bf60889bd30f259bf9dc32188e0762e21b99acd302671bd620b
-- repo_url: hayamiz/hayamiz-skills
+- repo_url: hayamiz/hayamiz-agentkit
   host: github.com
   resolved_commit: c49c95c596b2ea2fbaf644aca38ff23b1648679d
   virtual_path: commit-session
@@ -29,7 +29,7 @@ dependencies:
   deployed_files:
   - .claude/skills/commit-session
   content_hash: sha256:3dae5297352c41e7266c5ea3965856f67d14c1a9b9499b548d34012783591a19
-- repo_url: hayamiz/hayamiz-skills
+- repo_url: hayamiz/hayamiz-agentkit
   host: github.com
   resolved_commit: c49c95c596b2ea2fbaf644aca38ff23b1648679d
   virtual_path: gardener

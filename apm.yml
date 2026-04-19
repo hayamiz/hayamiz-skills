@@ -1,6 +1,6 @@
-name: hayamiz-skills
+name: hayamiz-agentkit
 version: 1.0.0
-description: APM project for hayamiz-skills
+description: APM project for hayamiz-agentkit
 author: Yuto Hayamizu
 dependencies:
   apm:
