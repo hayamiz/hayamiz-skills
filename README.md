@@ -2,44 +2,64 @@
 
 [早水](https://github.com/hayamiz) がコーディングエージェント (主に
 [Claude Code](https://claude.com/claude-code)) 向けに使っているスキル・プラグイン集です。
-[APM](https://github.com/apm-pkg/apm) 経由で配布します。
+
+配布経路は 2 系統:
+
+- **プラグイン** (`plugins/`) — Claude Code plugin marketplace 経由。`/ticket:fix`
+  のようにプラグイン名前空間付きのコマンドとして使えます。
+- **スキル** (`skills/`) — [APM](https://github.com/apm-pkg/apm) 経由。
+  `.claude/skills/` に直接展開されて素の名前で動きます。
 
 ## 構成
 
 ```
-skills/     スキル (1 ディレクトリ 1 スキル、各 SKILL.md を持つ)
+skills/     APM 配布のスキル (1 ディレクトリ 1 スキル、各 SKILL.md を持つ)
   commit-all/      worktree のすべての差分をセマンティックにまとめて commit
   commit-session/  現セッションで変更したファイルだけを commit
-plugins/    Claude Code プラグイン (1 ディレクトリ 1 プラグイン)
+plugins/    Claude Code plugin marketplace から配る (1 ディレクトリ 1 プラグイン)
   gardener/  リポジトリ健全性の監査 — docs sync / best-practices チェック等
   ticket/    ファイルベースのチケット運用 (init / create / check / triage / fix)
+.claude-plugin/
+  marketplace.json   plugins/ を Claude Code plugin marketplace として公開する定義
 ```
 
 各プラグイン・スキルの詳細は、それぞれの `SKILL.md` / `plugin.json` を参照してください。
 
 ## インストール
 
-前提: [`apm`](https://github.com/apm-pkg/apm) CLI が入っていること。
+### プラグイン (Claude Code)
 
-プロジェクトに個別で入れる場合:
+Claude Code の plugin marketplace コマンドで追加します。
+
+```text
+# marketplace を登録 (初回のみ)
+/plugin marketplace add hayamiz/hayamiz-agentkit
+
+# プラグインを入れる
+/plugin install ticket@hayamiz-agentkit
+/plugin install gardener@hayamiz-agentkit
+```
+
+インストール後は `/ticket:init`, `/ticket:create`, `/ticket:check`,
+`/ticket:triage`, `/ticket:fix`, `/gardener:*` といったコマンドが使えます。
+
+### スキル (APM)
+
+[`apm`](https://github.com/apm-pkg/apm) CLI が入っている前提です。
 
 ```sh
-# スキル
 apm install hayamiz/hayamiz-agentkit/skills/commit-all
 apm install hayamiz/hayamiz-agentkit/skills/commit-session
-
-# プラグイン
-apm install hayamiz/hayamiz-agentkit/plugins/gardener
-apm install hayamiz/hayamiz-agentkit/plugins/ticket
 ```
 
 ユーザーグローバル (`~/.apm/`) に入れるときは `-g` を付けます:
 
 ```sh
-apm install -g hayamiz/hayamiz-agentkit/plugins/gardener
+apm install -g hayamiz/hayamiz-agentkit/skills/commit-session
 ```
 
-このリポジトリ自身の `apm.yml` で管理されている依存をまとめて入れ直すには:
+このリポジトリ自身の `apm.yml` に書いてある依存 (`skill-creator` + 上の 2 スキル)
+をまとめて入れ直すには:
 
 ```sh
 apm install
@@ -49,7 +69,8 @@ apm install
 
 - `.claude/skills/` は `apm install` が生成するため gitignore 済みです。ソースを編集するときは
   `skills/<name>/` または `plugins/<name>/skills/<name>/` を触ってください。
-- 新しいスキル / プラグインを追加したら `apm.yml` の `dependencies.apm` にも
-  エントリを足し、`apm install` でロックファイルを更新します。
+- プラグインを追加したら `.claude-plugin/marketplace.json` の `plugins` エントリにも
+  足してください。スキルを追加したら `apm.yml` の `dependencies.apm` に足して
+  `apm install` でロックファイルを更新します。
 - 詳しい規約は [`CLAUDE.md`](CLAUDE.md)、[`skills/CLAUDE.md`](skills/CLAUDE.md)、
   [`plugins/CLAUDE.md`](plugins/CLAUDE.md) を参照してください。

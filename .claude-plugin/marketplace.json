@@ -1,0 +1,18 @@
+{
+  "name": "hayamiz-agentkit",
+  "owner": {
+    "name": "Yuto Hayamizu"
+  },
+  "plugins": [
+    {
+      "name": "gardener",
+      "source": "./plugins/gardener",
+      "description": "Audit and improve repository health — docs sync, best practices, security hygiene, skill extraction, and maintenance of its own support-file checklists."
+    },
+    {
+      "name": "ticket",
+      "source": "./plugins/ticket",
+      "description": "File-based, in-repo ticket workflow: init → create → check → triage → fix. Tickets are numbered Markdown files in the repository, separate from GitHub Issues."
+    }
+  ]
+}
