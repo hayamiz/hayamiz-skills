@@ -5,8 +5,8 @@
 
 配布経路は 2 系統:
 
-- **プラグイン** (`plugins/`) — Claude Code plugin marketplace 経由。`/ticket:fix`
-  のようにプラグイン名前空間付きのコマンドとして使えます。
+- **プラグイン** (`plugins/`) — Claude Code plugin marketplace 経由。`/ticket-fix`
+  のようにプラグイン名をプレフィックスに付けたコマンドとして使えます。
 - **スキル** (`skills/`) — [APM](https://github.com/apm-pkg/apm) 経由。
   `.claude/skills/` に直接展開されて素の名前で動きます。
 
@@ -40,8 +40,8 @@ Claude Code の plugin marketplace コマンドで追加します。
 /plugin install gardener@hayamiz-agentkit
 ```
 
-インストール後は `/ticket:init`, `/ticket:create`, `/ticket:check`,
-`/ticket:triage`, `/ticket:fix`, `/gardener:*` といったコマンドが使えます。
+インストール後は `/ticket-init`, `/ticket-create`, `/ticket-check`,
+`/ticket-triage`, `/ticket-fix`, `/gardener` といったコマンドが使えます。
 
 ### スキル (APM)
 

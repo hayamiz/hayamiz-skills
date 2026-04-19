@@ -7,8 +7,9 @@ Two distribution channels:
 
 - **Plugins** (`plugins/`) — shipped through the Claude Code plugin marketplace
   defined in `.claude-plugin/marketplace.json`. Installed via `/plugin install
-  <name>@hayamiz-agentkit`. Skills inside a plugin are namespaced as
-  `<plugin>:<skill>` (e.g. `/ticket:fix`).
+  <name>@hayamiz-agentkit`. Claude Code slash-command names are *not*
+  auto-namespaced by plugin, so plugin-owned skills use a manual `<plugin>-`
+  prefix on the skill directory (e.g. `ticket-fix/` → `/ticket-fix`).
 - **Skills** (`skills/`) — shipped through [APM](https://github.com/apm-pkg/apm).
   Installed via `apm install hayamiz/hayamiz-agentkit/skills/<name>`, deployed
   to `.claude/skills/<name>/` with no namespace prefix.
@@ -60,8 +61,8 @@ apm_modules/            APM install output (gitignored)
 - `/commit-session` — commit only the files changed in the current session,
   grouped into semantically coherent commits.
 - `/commit-all` — commit every dirty file, similarly grouped.
-- `/ticket:init` / `/ticket:create` / `/ticket:check` / `/ticket:triage` /
-  `/ticket:fix` — file-based ticket workflow (provided by the `ticket` plugin).
+- `/ticket-init` / `/ticket-create` / `/ticket-check` / `/ticket-triage` /
+  `/ticket-fix` — file-based ticket workflow (provided by the `ticket` plugin).
   See each skill's `SKILL.md` for details.
 - `/gardener` — repo health audit. Reference checklists live in
   `plugins/gardener/*.md`.
@@ -87,7 +88,7 @@ apm_modules/            APM install output (gitignored)
   or re-run `apm install` to regenerate the lockfile.
 - **Do not add `plugins/*` to `apm.yml`.** Plugins are distributed through
   `marketplace.json`, not APM. APM installs plugin contents flat into
-  `.claude/skills/`, which loses the `<plugin>:<skill>` namespace and can
+  `.claude/skills/`, which loses the `<plugin>-` directory prefix and can
   collide with built-in skill names (e.g. plugin `init` vs built-in `/init`).
 - The repo was renamed from `hayamiz-skills` to `hayamiz-agentkit`. The local
   working directory may still be named `hayamiz-skills` — that's cosmetic and

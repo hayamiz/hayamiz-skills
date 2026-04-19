@@ -1,5 +1,5 @@
 ---
-name: init
+name: ticket-init
 description: "Initialize the project's ticket directory. Resolves (or declares) the ticket path in CLAUDE.md, creates the directory and its CLAUDE.md, and offers to migrate pre-existing ticket-like directories (e.g. doc/issues/)."
 allowed-tools: Bash(*) Read Write Edit Glob Grep
 ---
@@ -8,7 +8,7 @@ allowed-tools: Bash(*) Read Write Edit Glob Grep
 
 One-time setup for the `ticket` plugin on a host project. Decides where tickets will live, records that decision in the project's root `CLAUDE.md`, creates the directory plus its conventions file, and — if the repo already has a legacy ticket-like directory — offers to migrate its contents.
 
-Run this before `/ticket:create` / `/ticket:check` / `/ticket:triage` / `/ticket:fix` on a new project. Running it again on an already-initialized project is safe: it detects existing state and does not overwrite.
+Run this before `/ticket-create` / `/ticket-check` / `/ticket-triage` / `/ticket-fix` on a new project. Running it again on an already-initialized project is safe: it detects existing state and does not overwrite.
 
 ## Portability (maintainers, read this before editing)
 
@@ -32,8 +32,8 @@ These skills must remain project-agnostic. When updating this SKILL.md, do **not
      Ticket directory: doc/tickets/
 
      File-based work-item tickets for this project live under `doc/tickets/`.
-     Managed by the `ticket` plugin (`/ticket:create`, `/ticket:check`,
-     `/ticket:triage`, `/ticket:fix`). See `doc/tickets/CLAUDE.md` for the
+     Managed by the `ticket` plugin (`/ticket-create`, `/ticket-check`,
+     `/ticket-triage`, `/ticket-fix`). See `doc/tickets/CLAUDE.md` for the
      ticket schema and lifecycle.
      ```
 
@@ -83,12 +83,12 @@ Report to the user:
 - Whether the root `CLAUDE.md` was updated (or created) with the declaration.
 - Whether `<ticket-dir>/CLAUDE.md` was newly created or already existed.
 - For each migrated legacy directory: files moved, any renumbering that happened, and files that were **not** migrated (if any).
-- Next recommended command: `/ticket:check` to see the state, or `/ticket:create <title>` to add a new ticket.
+- Next recommended command: `/ticket-check` to see the state, or `/ticket-create <title>` to add a new ticket.
 
 ## Notes
 
 - This skill only writes to the root `CLAUDE.md`, inside `<ticket-dir>/`, and — during migration — inside the legacy directory it's moving from. It never touches source code.
-- Re-running `/ticket:init` on an already-initialized project should be a no-op unless a new legacy directory has appeared.
+- Re-running `/ticket-init` on an already-initialized project should be a no-op unless a new legacy directory has appeared.
 - The mandatory migration ask in Step 4 is a safety rail. A misidentified "legacy tracker" could be a design doc directory or unrelated Markdown collection — moving those silently would destroy the user's organization. The ask stands even in Auto mode.
 
 ## Appendix: default `<ticket-dir>/CLAUDE.md`
@@ -100,7 +100,7 @@ If `<ticket-dir>/CLAUDE.md` is missing, create it with the following content. Th
 
 This directory holds file-based work-item tickets. Each ticket is a Markdown
 file with YAML frontmatter. Tickets are managed by the `ticket` plugin
-(`/ticket:create`, `/ticket:check`, `/ticket:triage`, `/ticket:fix`).
+(`/ticket-create`, `/ticket-check`, `/ticket-triage`, `/ticket-fix`).
 
 ## File naming
 
@@ -129,7 +129,7 @@ Required:
 - `## Description` — what and why. Include enough context that a reader
   unfamiliar with the conversation can act on it.
 
-Added by `/ticket:triage`:
+Added by `/ticket-triage`:
 
 - `## Triage`
   - `Complexity: low | medium | high`
@@ -137,31 +137,31 @@ Added by `/ticket:triage`:
   - `Requires user decision: yes | no`
   - `Notes:` a short rationale.
 
-Added by `/ticket:triage` when `Mechanical fix: no`:
+Added by `/ticket-triage` when `Mechanical fix: no`:
 
 - `## Implementation Notes` — concrete plan, alternatives, open questions,
   specific decision points for the user.
 
-Added by `/ticket:fix` on resolution:
+Added by `/ticket-fix` on resolution:
 
 - `## Resolution` — what was changed, which tests were added, any follow-ups.
 
 ## Lifecycle
 
 - `open` — newly created, not yet triaged.
-- `in-progress` — being worked on (set by `/ticket:fix`).
+- `in-progress` — being worked on (set by `/ticket-fix`).
 - `blocked` — waiting on external input; keep in the open directory.
 - `resolved` — done; file moves to `<ticket-dir>/resolved/`.
 
 ## Project integration
 
 If this project has a spec or design doc that tickets should stay consistent
-with, name it here (e.g., `Spec: doc/SPEC.md`). `/ticket:fix` will read this
+with, name it here (e.g., `Spec: doc/SPEC.md`). `/ticket-fix` will read this
 hint and update the spec when a fix changes user-visible behavior. If no
 spec is declared, the spec-update step is skipped.
 
 If this project has verification commands (tests, linters, type checks)
-that `/ticket:fix` should run, list them here under a `## Verification`
-heading as a shell-ready checklist. If none are declared, `/ticket:fix`
+that `/ticket-fix` should run, list them here under a `## Verification`
+heading as a shell-ready checklist. If none are declared, `/ticket-fix`
 will ask the user what to run.
 ```
