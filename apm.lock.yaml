@@ -14,7 +14,7 @@ dependencies:
 - repo_url: hayamiz/hayamiz-agentkit
   host: github.com
   resolved_commit: c49c95c596b2ea2fbaf644aca38ff23b1648679d
-  virtual_path: commit-all
+  virtual_path: skills/commit-all
   is_virtual: true
   package_type: claude_skill
   deployed_files:
@@ -23,7 +23,7 @@ dependencies:
 - repo_url: hayamiz/hayamiz-agentkit
   host: github.com
   resolved_commit: c49c95c596b2ea2fbaf644aca38ff23b1648679d
-  virtual_path: commit-session
+  virtual_path: skills/commit-session
   is_virtual: true
   package_type: claude_skill
   deployed_files:
