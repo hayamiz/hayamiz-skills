@@ -90,6 +90,17 @@ apm_modules/            APM install output (gitignored)
   `marketplace.json`, not APM. APM installs plugin contents flat into
   `.claude/skills/`, which loses the `<plugin>-` directory prefix and can
   collide with built-in skill names (e.g. plugin `init` vs built-in `/init`).
-- The repo was renamed from `hayamiz-skills` to `hayamiz-agentkit`. The local
-  working directory may still be named `hayamiz-skills` — that's cosmetic and
-  doesn't affect anything.
+
+## Coding Guidelines
+
+### Think Before Coding
+State assumptions explicitly before implementation. Surface multiple interpretations rather than choosing silently. Highlight simpler alternatives and push back when appropriate. Stop and ask if anything remains unclear.
+
+### Simplicity First
+Write only what was requested — no extra features, unnecessary abstractions, or error handling for edge cases that won't occur. Rewrite if you can reduce 200 lines to 50.
+
+### Surgical Changes
+When editing existing code, match its style without improving unrelated areas. Remove imports and variables that your changes orphaned, but mention (don't delete) pre-existing dead code.
+
+### Goal-Driven Execution
+Transform tasks into verifiable goals with clear success criteria. For multi-step work, outline the plan with verification checkpoints. Strong criteria enable independent iteration; vague ones require constant clarification.
