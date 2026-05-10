@@ -49,6 +49,7 @@ RUN apt-get -o Acquire::Retries=3 update \
     iproute2 \
     dnsutils \
     net-tools \
+    tmux \
     locales \
     python3 \
     python3-pip \
@@ -102,6 +103,23 @@ RUN mkdir -p /home/${USERNAME}/.claude/projects \
              /home/${USERNAME}/.claude/sessions \
     && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.claude
 
+# Create minimal tmux config with C-t as prefix
+RUN printf '%s\n' \
+        'unbind C-b' \
+        'set -g prefix C-t' \
+        'bind C-t send-prefix' \
+        'set -g mode-keys vi' \
+        'bind -T prefix C-u copy-mode -u' \
+        'bind -T prefix C-d copy-mode \; send-keys -X halfpage-down' \
+        'set -ga update-environment "VSCODE_IPC_HOOK_CLI VSCODE_GIT_IPC_HANDLE VSCODE_GIT_ASKPASS_NODE VSCODE_GIT_ASKPASS_MAIN VSCODE_INJECTION TERM_PROGRAM"' \
+        'set -g history-limit 100000' \
+        'set -sg escape-time 10' \
+        'set -g focus-events on' \
+        'set -g default-terminal "tmux-256color"' \
+        'set -ga terminal-overrides ",*256col*:Tc,xterm-256color:Tc"' \
+        'bind r source-file ~/.tmux.conf \; display "reloaded"' \
+        > /home/${USERNAME}/.tmux.conf \
+    && chown ${USER_UID}:${USER_GID} /home/${USERNAME}/.tmux.conf
 
 # Generate post-start initialization script
 RUN { \
