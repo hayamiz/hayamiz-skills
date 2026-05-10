@@ -17,6 +17,10 @@
         "ms-vscode.vscode-chat-customizations-evaluations"
       ],
       "settings": {
+        // Acceptable for this single-developer devcontainer: the only project
+        // bind-mount is the workspace itself, the container is rebuildable, and
+        // the productivity cost of approving routine prompts outweighs the risk.
+        // Do not copy this setting to shared/team containers without review.
         "claudeCode.allowDangerouslySkipPermissions": true
       }
     }

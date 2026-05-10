@@ -7,3 +7,19 @@ apm_modules/
 # APM-deployed skills and local Claude settings
 .claude/skills/
 .claude/settings.local.json
+
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets/
+
+# Local-only overrides (the devcontainer template below is the only exception)
+*.local.json
+!.devcontainer/inside-container.settings.local.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
