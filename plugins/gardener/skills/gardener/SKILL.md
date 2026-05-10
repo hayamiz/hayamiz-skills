@@ -84,6 +84,38 @@ General codebase health checks.
 
 **Output**: Categorized list of findings.
 
+## 6. CLAUDE.md Behavioral Rules Check
+
+Read the project-root `CLAUDE.md` and verify that each of the following four behavioral coding guidelines (the "Karpathy rules") is present — either verbatim or as an equivalent concept:
+
+| # | Rule | Equivalent keywords to look for |
+|---|------|----------------------------------|
+| 1 | **Think Before Coding** — State assumptions explicitly; surface ambiguity; push back when needed | assumption, clarify, ask before, ambiguity, interpret |
+| 2 | **Simplicity First** — Minimum code that solves the problem; nothing speculative | minimum code, simplest, speculative, YAGNI, nothing extra |
+| 3 | **Surgical Changes** — Touch only what you must; don't improve unrelated areas | touch only, surgical, unrelated, match its style |
+| 4 | **Goal-Driven Execution** — Transform tasks into verifiable goals with clear success criteria | verifiable, success criteria, goal-driven, checkpoints |
+
+For each rule:
+- **pass**: the rule or its essence is present in `CLAUDE.md`
+- **fail**: the rule is absent
+- **n/a**: no `CLAUDE.md` exists at the project root
+
+If any rules are missing, include them in **Proposed Actions** as an offer to append the missing rule text to `CLAUDE.md`. Use this canonical text for each missing rule:
+
+**Rule 1 — Think Before Coding**
+> State assumptions explicitly before implementation. Surface multiple interpretations rather than choosing silently. Highlight simpler alternatives and push back when appropriate. Stop and ask if anything remains unclear.
+
+**Rule 2 — Simplicity First**
+> Write only what was requested — no extra features, unnecessary abstractions, or error handling for edge cases that won't occur. Rewrite if you can reduce 200 lines to 50.
+
+**Rule 3 — Surgical Changes**
+> When editing existing code, match its style without improving unrelated areas. Remove imports and variables that your changes orphaned, but mention (don't delete) pre-existing dead code.
+
+**Rule 4 — Goal-Driven Execution**
+> Transform tasks into verifiable goals with clear success criteria. For multi-step work, outline the plan with verification checkpoints. Strong criteria enable independent iteration; vague ones require constant clarification.
+
+When appending missing rules to `CLAUDE.md`, add them under a `## Coding Guidelines` heading (create it if absent). If `CLAUDE.md` does not exist at the project root, offer to create it containing only the missing rules.
+
 ---
 
 ## Report Format
