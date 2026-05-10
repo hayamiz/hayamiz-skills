@@ -1,0 +1,6 @@
+{
+  "enabledPlugins": {
+    "gardener@hayamiz-agentkit": true,
+    "ticket@hayamiz-agentkit": true
+  }
+}

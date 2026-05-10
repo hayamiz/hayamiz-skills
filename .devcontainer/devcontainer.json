@@ -13,7 +13,8 @@
     "vscode": {
       "extensions": [
         "anthropic.claude-code",
-        "cline.cline"
+        "cline.cline",
+        "ms-vscode.vscode-chat-customizations-evaluations"
       ],
       "settings": {
         "claudeCode.allowDangerouslySkipPermissions": true
